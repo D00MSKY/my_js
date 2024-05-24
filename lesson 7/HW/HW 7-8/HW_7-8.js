@@ -37,28 +37,26 @@ users.myMap(el => {
 });
 
 
-// Тут не розумію, чому виводиться лише перший елемент масиву, який задовольняє заданим умовам і
-// як зробити, щоб виводились усі:
 
 Array.prototype.myFilter = function (callback){
     let arr = [];
+    for (const item of this) {
+        callback(item)
+        if (callback(item)){
+        arr.push(callback(item))
+        }
+    }
 
-        arr.push(callback())
-
-        console.log(arr)
+    console.log(arr)
 };
 
 
 
-users.myFilter(value => {
-    for (const user of users) {
-    if (user.age > 30){
-        return user
+users.myFilter((el) => {
+    if (el.age > 30){
+        return el
     }
-    }
-    });
-
-
+});
 
 
 
