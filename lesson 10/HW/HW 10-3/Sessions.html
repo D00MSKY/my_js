@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style>
+        .info{
+            display: flex;
+            width: 200px;
+            height: 30px;
+            background: #f69875;
+            margin-bottom: 5px;
+            justify-content: center;
+            align-items: center;
+            border: solid #bd1212;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    
+    let sessions = localStorage.getItem('sessions');
+    let SessionsParse = JSON.parse(sessions)
+    console.log(SessionsParse)
+    for (const sessionsParseElement of SessionsParse) {
+        let info = document.createElement('div');
+        info.classList = 'info';
+        document.body.appendChild(info);
+        info.innerText = sessionsParseElement
+    }
+    
+</script>
+
+</body>
+</html>
