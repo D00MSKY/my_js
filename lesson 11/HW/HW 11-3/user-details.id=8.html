@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        p{
+            margin-left: 25px;
+        }
+        #card{
+            background: #94b3bd;
+            padding: 10px;
+            border-radius: 25px;
+            width: fit-content;
+        }
+
+    </style>
+
+    <script>
+        fetch('http://jsonplaceholder.typicode.com/users')
+            .then(res => res.json())
+            .then((user) => {
+                let userCard = document.createElement('div')
+                container.appendChild(userCard)
+                userCard.id = 'card'
+                for (const userKey in user[7]) {
+                    if(userKey !== 'address' && userKey !== 'company') {
+                        let par = document.createElement('p')
+                        userCard.appendChild(par)
+                        par.innerHTML = `<b>${userKey}:</b> ${user[7][userKey]}`
+                    }
+                }
+                let addressUl = document.createElement('ul')
+                addressUl.innerHTML = `<h3>Address:</h3>`
+                userCard.appendChild(addressUl)
+                let compUl = document.createElement('ul')
+                userCard.appendChild(compUl)
+                compUl.innerHTML = `<h3>Company:</h3>`
+                for (const userElement in user[7].address) {
+                    let addressLi = document.createElement('li')
+                    addressUl.appendChild(addressLi)
+                    if (userElement !== 'geo') {
+                        addressLi.innerHTML = `<b>${userElement}:</b> ${user[7].address[userElement]}`
+                        // console.log(userElement, user[0].address[userElement])
+                    } else {
+                        addressLi.innerHTML = `<b>${userElement}:</b> lat: ${user[7].address.geo.lat}, lng: ${user[7].address.geo.lng}`
+                    }
+                }
+                for (const companyKey in user[7].company) {
+                    let compLi = document.createElement('li')
+                    compUl.appendChild(compLi)
+                    compLi.innerHTML = `<b>${companyKey}:</b> ${user[7].company[companyKey]}`
+
+                }
+
+
+            })
+    </script>
+
+
+</head>
+<body>
+
+<div id="container"></div>
+
+</body>
+</html>
