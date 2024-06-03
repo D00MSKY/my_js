@@ -20,7 +20,7 @@ fetch('http://jsonplaceholder.typicode.com/users')
             let li = document.createElement('li')
             ul.appendChild(li)
             let link = document.createElement('a')
-            link.href = `user-details.id=${user.id}.html`
+            link.href = `user-details.html?id=${user.id}`
             li.innerHTML = `<b>id:</b> ${user.id}, <b>name:</b> ${user.name}`
             link.id = 'link'
             link.innerText = `info`

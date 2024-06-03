@@ -21,17 +21,20 @@
     </style>
 
     <script>
-        fetch('http://jsonplaceholder.typicode.com/users')
+
+        let uId = new URLSearchParams(window.location.search).get('id')
+
+        fetch(`http://jsonplaceholder.typicode.com/users/${uId}`)
             .then(res => res.json())
             .then((user) => {
                 let userCard = document.createElement('div')
                 container.appendChild(userCard)
                 userCard.id = 'card'
-                for (const userKey in user[6]) {
+                for (const userKey in user) {
                     if(userKey !== 'address' && userKey !== 'company') {
                         let par = document.createElement('p')
                         userCard.appendChild(par)
-                        par.innerHTML = `<b>${userKey}:</b> ${user[6][userKey]}`
+                        par.innerHTML = `<b>${userKey}:</b> ${user[userKey]}`
                     }
                 }
                 let addressUl = document.createElement('ul')
@@ -40,20 +43,19 @@
                 let compUl = document.createElement('ul')
                 userCard.appendChild(compUl)
                 compUl.innerHTML = `<h3>Company:</h3>`
-                for (const userElement in user[6].address) {
+                for (const userElement in user.address) {
                     let addressLi = document.createElement('li')
                     addressUl.appendChild(addressLi)
                     if (userElement !== 'geo') {
-                        addressLi.innerHTML = `<b>${userElement}:</b> ${user[6].address[userElement]}`
-                        // console.log(userElement, user[0].address[userElement])
+                        addressLi.innerHTML = `<b>${userElement}:</b> ${user.address[userElement]}`
                     } else {
-                        addressLi.innerHTML = `<b>${userElement}:</b> lat: ${user[6].address.geo.lat}, lng: ${user[6].address.geo.lng}`
+                        addressLi.innerHTML = `<b>${userElement}:</b> lat: ${user.address.geo.lat}, lng: ${user.address.geo.lng}`
                     }
                 }
-                for (const companyKey in user[6].company) {
+                for (const companyKey in user.company) {
                     let compLi = document.createElement('li')
                     compUl.appendChild(compLi)
-                    compLi.innerHTML = `<b>${companyKey}:</b> ${user[6].company[companyKey]}`
+                    compLi.innerHTML = `<b>${companyKey}:</b> ${user.company[companyKey]}`
 
                 }
 
